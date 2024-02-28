@@ -1,6 +1,7 @@
 # An Open-Source Face-Aware Capture System
 Abstract: This work introduces a novel facial image capture system that utilizes computer vision technology and artificial intelligence for real-time detection and capturing of human faces. The objective of this study is to address the challenges posed by poor-quality facial images in biometric authentication, especially in passport photo acquisition and recognition. By combining face-aware capture technology with Advanced Encryption Standard (AES) encryption for secure image storage, we present a completely open-source hardware solution that consists of a Jetson processor, a 16MP autofocus RGB camera, a custom enclosure, and a touch sensor LCD for user interaction. Pilot data collection demonstrates the system's ability to capture high-quality images, achieving a 98.98% accuracy in storing images of acceptable quality. The integration of AES encryption ensures data security, making the proposed system suitable for real-time applications in other domains beyond identity verification in passport applications, such as security systems, video conferencing, etc.
 
+![Alt text](asset/face_aware.png)
 
 # Getting started with Jetson Nano 
 1. Gather necessary components: Jetson Nano Developer Kit 4GB, microSD card (32GB or more), compatible power supply, keyboard, mouse, HDMI-compatible display, and internet connection.
