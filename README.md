@@ -43,9 +43,9 @@ sudo python3 setup.py install
 ```
 # How to run the code
 ```console
-git clone https://github.com/baset-sarker/face-aware-gui.git
-cd face-aware-gui
-python3 usb_camera.py 
+git clone https://github.com/baset-sarker/face-aware-capture.git
+cd face-aware-capture
+python3 main.py
 ```
 
 

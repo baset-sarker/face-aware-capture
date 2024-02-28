@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 from scipy import rand
 from imutils import face_utils
-#from dlib import get_frontal_face_detector,shape_predictor
 import time
 import numpy as np
 from scipy.spatial import distance as dist
@@ -82,8 +81,6 @@ def blur_photo_check(grey_img):
     return laplacian_var
 
   
-
-
 
 def face_detector_plot_rect(i):
     face_area = 0 
@@ -365,30 +362,13 @@ def check_image_quality(image,image_name,detector,predictor):
         shape = predictor(image, rect)
         shape1 = shape
         shape = face_utils.shape_to_np(shape)
-        #leftEye = shape[lStart:lEnd]
-        #rightEye = shape[rStart:rEnd]
         jaw = shape[jStart:jEnd]
-        #right_eyebrow = shape[reStart:reEnd]
-        #left_eyebrow = shape[leStart:leEnd]
         nose = shape[nStart:nEnd]
-        #mouth= shape[mStart:mEnd]
         print("nose position",nose[0][0],nose[0][1])
         x = nose[0][0]
         y = nose[0][1]
 
         nose_position = is_nose_is_in_middle(image,x,y)
-
-
-        
-        # leftEyeHull = cv2.convexHull(leftEye)
-        # print(leftEyeHull)
-        # rightEyeHull = cv2.convexHull(rightEye)
-        # jawHull = cv2.convexHull(jaw)
-        # right_eyebrowHull = cv2.convexHull(right_eyebrow)
-        # noseHull = cv2.convexHull(nose)
-        # left_eyebrowHull = cv2.convexHull(left_eyebrow)
-        # mouthHull = cv2.convexHull(mouth)
-        
 
         cv2.line(image,tuple(jaw[0]),(jaw[16][0],jaw[0][1]), (255,255,0), 2) 
         d_ratio = dist_ratio(jaw,nose)
@@ -419,19 +399,6 @@ def check_image_quality(image,image_name,detector,predictor):
         is_glass = 0
         is_red_eye_detected = detect_red_eye(image,shape1)   
 
-        
-  
-
-        #draw shapes on image
-        #cv2.drawContours(image, [leftEyeHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [rightEyeHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [jawHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [right_eyebrowHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [left_eyebrowHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [noseHull], 0, (255, 255, 255), 1)
-        #cv2.drawContours(image, [mouthHull], 0, (255, 255, 255), 1)
-
-        
         if jaw is None:
             print("--No face detected")
             return False,"No face detected"

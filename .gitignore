@@ -22,3 +22,4 @@ rad.json
 TestResults.xml
 ./data/*
 ./venv/*
+.__pycache__/*
