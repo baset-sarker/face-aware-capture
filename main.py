@@ -25,7 +25,9 @@ except:
 detector = get_frontal_face_detector()
 predictor = shape_predictor("shape_files/shape_predictor_68_face_landmarks.dat")
 
+# change camera port if needed
 CAMERA_PORT = 0
+
 IMAGEWIDTH = 3840
 IMAGEHEIGHT = 2160
 
@@ -134,7 +136,6 @@ def click_on_image(img_index):
 
 def draw_box(image):
     height,width,depth = image.shape
-
 
     start_x = int(width*30/100)
     start_y = int(height*15/100)

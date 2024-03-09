@@ -2,7 +2,6 @@ import random
 import cv2
 import numpy as np
 from scipy import rand
-from imutils import face_utils
 import time
 import numpy as np
 from scipy.spatial import distance as dist
@@ -106,6 +105,55 @@ def face_detector_plot_rect(i):
 def get_area_of_polygon(arr_of_tuple):
     poly = geometry.Polygon(arr_of_tuple)
     return poly.area
+
+def is_washed_out(img):
+  """
+  Analyzes Wahsed out image
+  Args:
+      image_path: Path to the image file.
+  Returns:
+      True if the image shows signs of washout, False otherwise.
+  """
+  t_start = time.monotonic()
+  # Convert to grayscale if colored
+  if len(img.shape) > 2:
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+  # Calculate the histogram
+  hist = cv2.calcHist([img], [0], None, [256], [0, 256])
+
+  # Normalize the histogram for better visualization
+  hist_norm = hist.ravel() / hist.sum()
+
+  # Thresholds can be adjusted based on image characteristics
+  peak_threshold = 0.8  # Threshold for peak concentration
+  low_threshold = 0.1  # Threshold for low values at extremes
+  washed_out = False
+
+  # Check if peak is too high and extremes are too low
+  if max(hist_norm) > peak_threshold and (hist_norm[0] < low_threshold or hist_norm[-1] < low_threshold):
+    washed_out = True
+  
+  print('#is_washed_out_time_seconds:: {:.6f}'.format(time.monotonic() - t_start))
+  return washed_out
+
+
+def check_pixelation(img):
+    t_start = time.monotonic()
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # Calculate the horizontal and vertical gradients using Sobel operator
+    grad_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
+    grad_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
+    # Combine the gradients
+    gradient_magnitude = np.sqrt(grad_x**2 + grad_y**2)
+
+    # Calculate the mean gradient magnitude
+    mean_gradient_val = np.mean(gradient_magnitude)
+
+    print('#check_pixelation_time_seconds:: {:.6f}'.format(time.monotonic() - t_start))
+
+    return mean_gradient_val
 
 
 def glasses_detector(imag,rect,predictor):
@@ -340,6 +388,8 @@ def check_image_quality(image,image_name,detector,predictor):
 
     # blur value (laplacian) need gray image
     blur_value = blur_photo_check(gray)
+    washedout_value = is_washed_out(image)
+    pixelation_value = check_pixelation(image)
     
     
 
@@ -408,13 +458,19 @@ def check_image_quality(image,image_name,detector,predictor):
         elif blur_value < 5: #blur (laplacian) check
             print("--Not acceptable, Image is blurry")
             return False,"Image is blurry"
+        elif washedout_value == True:
+            print("--Not acceptable, Image is washed out")
+            return False,"Image is washed out"
+        elif pixelation_value < 0.5:
+            print("--Not acceptable, Image is pixelated")
+            return False,"Image is pixelated"
         elif left_eye_distance_ratio > 6 or right_eye_distance_ratio > 6:
             print("--Not acceptable, Eye Closed") 
             return False,"Eye Closed"
         elif d_ratio > 1.2 or d_ratio < .9:
             print("--Not acceptable, looking away")
             return False,"Looking away"
-        elif jaw_angle > 10 or jaw_angle < -10:
+        elif jaw_angle > 10 or jaw_angle < -10: # added two degree beacuse not all the time detection always perfect
             print("--Not acceptable for tilted")
             return False,"Not acceptable for Tilted Head"
         elif brightness > 190:  # Based on histogram value
