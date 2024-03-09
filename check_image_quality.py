@@ -282,9 +282,6 @@ def detect_red_eye(photo,shape):
       return 1
 
 
-
-
-
 def mouth_aspect_ratio(mouth):
     start_time = time.monotonic()
     # compute the euclidean distances between the two sets of
