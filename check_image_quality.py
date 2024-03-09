@@ -15,6 +15,10 @@ from numpy.linalg import norm
 #functions start
 
 def angle_between(p1, p2):
+    '''Finds the angle between two points. 
+    The angle is measured in degrees and is positive in the counterclockwise direction.
+
+    '''
     #start_time = time.monotonic()
     ang1 = np.arctan2(*p1[::-1])
     ang2 = np.arctan2(*p2[::-1])
@@ -23,6 +27,11 @@ def angle_between(p1, p2):
 
 
 def dist_ratio(jaw,nose):
+    # generate comment 
+    '''This function calculates the distance ratio between the jaw and the nose.
+    The distance ratio is calculated as the ratio of the distance between 
+    the first and last points of the jaw to the distance between the first point of the jaw and the nose.'''
+
     A = dist.euclidean(jaw[0], nose[0])
     B = dist.euclidean(nose[0], jaw[16])	
    
@@ -33,6 +42,13 @@ def dist_ratio(jaw,nose):
 
 
 def get_dist_ratio(a,b,c,d):
+    '''This function calculates the distance ratio between two points.
+    Args: 
+        a, b, c, d: The coordinates of the points.
+    Returns:
+        The distance ratio between the two points.
+
+    '''
     A = dist.euclidean(a,b)
     B = dist.euclidean(c,d)	
     if B == 0:
@@ -41,6 +57,12 @@ def get_dist_ratio(a,b,c,d):
       return A/B
 
 def face_dist_ratio(a,b,c,d):
+    '''This function calculates the distance ratio between two points.
+    Args:
+        a, b, c, d: The coordinates of the points.
+    Returns:
+        The distance ratio between the two points.
+    '''
     A = dist.euclidean(a,b)
     B = dist.euclidean(c,d)	
     if B == 0:
@@ -49,6 +71,13 @@ def face_dist_ratio(a,b,c,d):
       return A/B
  
 def getAngle(a, b, c):
+    '''This function calculates the angle between three points.
+    Args:
+        a, b, c: The coordinates of the points.
+    Returns:
+        The angle between the three points, in degrees.
+
+    '''
     ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))
     #return ang + 360 if ang < 0 else ang
     return ang
@@ -56,6 +85,12 @@ def getAngle(a, b, c):
 
 
 def get_brightness(img):
+    '''This function calculates the brightness of an image.
+    Args:
+        img: The image to be checked.
+    Returns: 
+        The brightness of the image.
+    '''
     start_time = time.monotonic()
     if len(img.shape) == 3:
         # Colored RGB or BGR (*Do Not* use HSV images with this function)
@@ -72,6 +107,13 @@ def get_brightness(img):
 
 #blur check need gray scale image
 def blur_photo_check(grey_img):
+    '''This function checks if an image is blurry.
+    Args:
+
+        grey_img: The grayscale image to be checked.
+    Returns:
+        True if the image is blurry, False otherwise.
+    ''' 
     start_time = time.monotonic()
  # img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     laplacian_var = cv2.Laplacian(grey_img, cv2.CV_64F).var()
@@ -139,6 +181,13 @@ def is_washed_out(img):
 
 
 def check_pixelation(img):
+    """
+    This function checks the pixelation of an image by calculating the mean gradient magnitude.
+
+    Parameters:
+    img (numpy.ndarray): The image to be checked, in BGR format.
+
+    """
     t_start = time.monotonic()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -157,6 +206,16 @@ def check_pixelation(img):
 
 
 def glasses_detector(imag,rect,predictor):
+    """
+    This function detects if glasses are present in an image.
+
+    Parameters:
+    imag (numpy.ndarray): The image to be checked.
+    rect (dlib.rectangle): The bounding box of the face in the image.
+    predictor (dlib.shape_predictor): The shape predictor to detect facial landmarks.
+
+    """
+    
     start_time = time.monotonic()
     # glass detection start
     sp = predictor(imag, rect)
@@ -198,6 +257,13 @@ def cv2_to_PIL(imgOpenCV):
 
 # required pil image so converted from cv2 first
 def check_background_color_white(cv2_image):
+    """
+    This function checks if the background color of an image is white.
+
+    Parameters:
+    cv2_image (numpy.ndarray): The image to be checked, in BGR format.
+    """
+    
     start_time = time.monotonic()
 
     #im = Image.open(image_path)
