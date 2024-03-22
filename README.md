@@ -1,5 +1,7 @@
 # An Open-Source Face-Aware Capture System
-Abstract: Poor-quality facial images pose challenges in biometric authentication, especially in passport photo acquisition and recognition. This study proposes a novel and open-source solution to address this issue by introducing a real-time facial image quality analysis utilizing computer vision technology on a low-power single-board computer.  We present an open-source complete hardware solution that consists of a Jetson processor, a 16MP autofocus RGB camera, a custom enclosure, and a touch sensor LCD for user interaction. To ensure the integrity and confidentiality of captured facial data, Advanced Encryption Standard (AES) is used for secure image storage. Using the pilot data collection, the system demonstrated its ability to capture high-quality images, achieving a 98.98% accuracy in storing images of acceptable quality. This open-source, readily deployable secure system offers promising potential for diverse real-time applications such as passport verification,  security systems, etc
+Poor-quality facial images pose challenges in biometric authentication, especially in passport photo acquisition and recognition. This study proposes a novel and open-source solution to address these issues by introducing a real-time facial image quality analysis utilizing computer vision technology on a low-power single-board computer. We present an open-source complete hardware solution that consists of a Jetson processor, a 16 MP autofocus RGB camera, a custom enclosure, and a touch sensor LCD for user interaction. To ensure the integrity and confidentiality of captured facial data, Advanced Encryption Standard (AES) is used for secure image storage. Using the pilot data collection, the system demonstrated its ability to capture high-quality images, achieving 98.98% accuracy in storing images of acceptable quality. This open-source, readily deployable, secure system offers promising potential for diverse real-time applications such as passport verification, security systems, etc.
+
+Keywords: AES encryption; face-aware; face-quality; Jetson processor; passport; quality assessment
 
 ![Alt text](asset/face_aware.png)
 
@@ -48,5 +50,18 @@ cd face-aware-capture
 python3 main.py
 ```
 
-
+# Cite this paper
+```
+@Article{electronics13071178,
+    AUTHOR = {Sarker, Md Abdul Baset and Hossain, S. M. Safayet and Venkataswamy, Naveenkumar G. and Schuckers, Stephanie and Imtiaz, Masudul H.},
+    TITLE = {An Open-Source Face-Aware Capture System},
+    JOURNAL = {Electronics},
+    VOLUME = {13},
+    YEAR = {2024},
+    NUMBER = {7},
+    ARTICLE-NUMBER = {1178},
+    URL = {https://www.mdpi.com/2079-9292/13/7/1178},
+    ISSN = {2079-9292},
+},
+```
 

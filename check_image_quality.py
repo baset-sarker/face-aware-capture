@@ -265,9 +265,6 @@ def check_background_color_white(cv2_image):
     """
     
     start_time = time.monotonic()
-
-    #im = Image.open(image_path)
-
     # convert cv2 image to pil
     im = cv2_to_PIL(cv2_image)
 
@@ -333,8 +330,6 @@ def detect_red_eye(photo,shape):
     y1=shape.part(43).y 
     y2=shape.part(46).y 
     righteye=photo[y1:y2,x1:x2]
-    #righteye=photo[y1-10:y2+10,x1-10:x2+10]
-    #cv2_imshow(righteye)
 
     check_right_eye = check_one_eye_red(righteye)
 
@@ -543,13 +538,13 @@ def check_image_quality(image,image_name,detector,predictor):
             print("--Not acceptable, Brightness is low")  
             return False,"Not acceptable, Brightness is low"
 
-        # elif mouth_distance_ratio < 12 or mouth_distance_ratio > 19: 
-        #     print("--Not acceptable, Mouth open")  
-        #     return False,"Not acceptable, Mouth open"
+        elif mouth_distance_ratio < 12 or mouth_distance_ratio > 19: 
+            print("--Not acceptable, Mouth open")  
+            return False,"Not acceptable, Mouth open"
 
-        # elif is_background_white == 0:
-        #     print("--Not acceptable, Background Color not white")
-        #     return False,"Not acceptable, Background Color not white"
+        elif is_background_white == 0:
+            print("--Not acceptable, Background Color not white")
+            return False,"Not acceptable, Background Color not white"
 
         elif is_glass == 1:
             print("--Not acceptable, Glass detected")
